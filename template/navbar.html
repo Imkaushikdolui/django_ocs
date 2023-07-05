@@ -1,6 +1,20 @@
-
 <!-- Font Awesome CDN -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<head>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    integrity="sha512-MVWw/fJkoEqEt5S5pz5U8xdDvQDWc5gI5iBnlKa0kCOKTuPK+tcXl7ZV7H3RqXZWmtlZvVXrnH8teDdVjYQ8fA=="
+    crossorigin="anonymous"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+  />
+</head>
 
 <style>
   body {
@@ -34,11 +48,16 @@
   }
 
   .menu li a {
+    display: flex;
+    align-items: center; /* Align icons vertically in the center */
     text-decoration: none;
     color: #fff;
     transition: color 0.3s ease;
+    line-height: 1; /* Remove line gap */
   }
-
+  .menu li a i {
+    margin-right: 5px; /* Add margin between icon and text */
+  }
   .menu li a:hover {
     color: #ffcc00;
   }
@@ -59,10 +78,10 @@
     background-color: #00226b;
     padding: 20px;
     gap: 10px;
+    animation: fadeIn 0.5s ease;
   }
 
   @media (max-width: 768px) {
-
     .menu {
       margin-top: 20px;
       flex-direction: column;
@@ -89,6 +108,7 @@
       top: 100%;
       left: 0;
       width: 100%;
+      margin-top: 0;
     }
     .mobile-menu.show {
       display: flex;
@@ -100,6 +120,14 @@
       margin-bottom: 10px;
     }
   }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 </style>
 
 <header class="header">
@@ -109,50 +137,62 @@
   {% endif %}
   <nav>
     <ul class="menu desktop-menu">
-      {% if user.is_authenticated %}
-        {% if request.user.role == "admin" %}
-        <li><a href="{% url 'base:adashboard' %}">Dashboard</a></li>
-        {% elif request.user.role == "teacher" %}
-        <li><a href="{% url 'base:tdashboard' %}">Dashboard</a></li>
-        <li><a href="{% url 'base:teacher_stats' request.user.id %}">Income & Stats</a></li>
-        {% else %}
-        <li><a href="{% url 'base:sdashboard' %}">Dashboard</a></li>
-        <li><a href="{% url 'base:enroll_course' request.user.id %}">MyCourses</a></li>
-        {% endif %}
-        <li><a href="{% url 'logout' %}" type="submit">Logout</a></li>
+      {% if user.is_authenticated %} {% if request.user.role == "admin" %}
+      <li><a href="{% url 'base:adashboard' %}">Dashboard</a></li>
+      {% elif request.user.role == "teacher" %}
+      <li><a href="{% url 'base:tdashboard' %}">Dashboard</a></li>
+      <li>
+        <a href="{% url 'base:teacher_stats' request.user.id %}"
+          >Income & Stats</a
+        >
+      </li>
       {% else %}
-        <li><a href="{% url 'login' %}" type="submit">Login</a></li>
+      <li><a href="{% url 'base:sdashboard' %}">Dashboard</a></li>
+      <li>
+        <a href="{% url 'base:enroll_course' request.user.id %}">MyCourses</a>
+      </li>
+      {% endif %}
+      <li><a href="{% url 'logout' %}" type="submit">Logout</a></li>
+      {% else %}
+      <li><a href="{% url 'login' %}" type="submit">Login</a></li>
       {% endif %}
     </ul>
     <div class="mobile-menu-icon"><i class="fas fa-bars"></i></div>
     <ul class="menu mobile-menu">
-      {% if user.is_authenticated %}
-        {% if request.user.role == "admin" %}
-        <li><a href="{% url 'base:adashboard' %}">Dashboard</a></li>
-        {% elif request.user.role == "teacher" %}
-        <li><a href="{% url 'base:tdashboard' %}">Dashboard</a></li>
-        <li><a href="{% url 'base:teacher_stats' request.user.id %}">Income & Stats</a></li>
-        {% else %}
-        <li><a href="{% url 'base:sdashboard' %}">Dashboard</a></li>
-        <li><a href="{% url 'base:enroll_course' request.user.id %}">MyCourses</a></li>
-        {% endif %}
-        <li><a href="{% url 'logout' %}" type="submit">Logout</a></li>
+      {% if user.is_authenticated %} {% if request.user.role == "admin" %}
+      <li><a href="{% url 'base:adashboard' %}">Dashboard</a></li>
+      {% elif request.user.role == "teacher" %}
+      <li><a href="{% url 'base:tdashboard' %}">Dashboard</a></li>
+      <li>
+        <a href="{% url 'base:teacher_stats' request.user.id %}"
+          >Income & Stats</a
+        >
+      </li>
       {% else %}
-        <li><a href="{% url 'login' %}" type="submit">Login</a></li>
+      <li><a href="{% url 'base:sdashboard' %}">Dashboard</a></li>
+      <li>
+        <a href="{% url 'base:enroll_course' request.user.id %}">MyCourses</a>
+      </li>
+      {% endif %}
+      <li><a href="{% url 'logout' %}" type="submit">Logout</a></li>
+      {% else %}
+      <li><a href="{% url 'login' %}" type="submit">Login</a></li>
       {% endif %}
     </ul>
   </nav>
 </header>
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
+  document.addEventListener("DOMContentLoaded", function () {
     const mobileMenuIcon = document.querySelector(".mobile-menu-icon");
     const mobileMenu = document.querySelector(".mobile-menu");
 
-    mobileMenuIcon.addEventListener("click", function() {
+    mobileMenuIcon.addEventListener("click", function () {
       mobileMenu.classList.toggle("show");
+      mobileMenuIcon.querySelector("i").classList.toggle("fa-bars");
+      mobileMenuIcon.querySelector("i").classList.toggle("fa-times");
     });
 
-    window.addEventListener("resize", function() {
+    window.addEventListener("resize", function () {
       if (window.innerWidth > 768) {
         mobileMenu.style.display = "none";
       }

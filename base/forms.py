@@ -5,7 +5,7 @@ class CourseForm(forms.ModelForm):
     class Meta:
         model = Course
         # fields = '__all__'
-        fields = ('name', 'price', 'course_post_date', 'category', 'body', 'duration')
+        fields = ('name', 'price', 'category', 'body', 'duration')
 
 class CourseContentForm(forms.ModelForm):
     class Meta:
