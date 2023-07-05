@@ -1,45 +1,54 @@
-{% extends 'main.html' %}
-{% block content %}
+{% extends 'main.html' %} {% block content %}
 <style>
-    .heading {
-      width: 100%;
-      min-height: 100vh;
-      color:white;
-      background-image: url("/static/bg.jpg");
-      background-size: cover;
-      background-position: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding-top: 100px;
+  .heading {
+    width: 100%;
+    min-height: 100vh;
+    color: white;
+    background-image: url("/static/bg.jpg");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 100px;
+  }
+  .card {
+    max-width: 95%;
+  }
+  .buy-button {
+    margin-top: 20px;
+  }
+  @media (max-width: 768px) {
+    .card {
+      max-width: 90%;
     }
-  </style>
-  <div class="heading">
-<h1>Course Details - {{ course.name }}</h1>
-<p>Price: {{ course.price }}</p>
-<p>Post Date: {{ course.course_post_date }}</p>
-<h2>Content:</h2>
-<center>
-<div class="row mx-1" >
-    {% if content %}
-        <div class="card m-4 bg-body-secondary">
-            <div class="card-body">
-                <p>{{ content.0.name }}</p>
-                <p>{{ content.0.body }}</p>
-                {% if content.0.content %}
-                    <video controls>
-                        <source src="{{ content.0.content.url }}" type="video/mp4">
-                    </video>
-                {% endif %}
-            </div>
+  }
+</style>
+<div class="heading">
+  <h1>Course Details - {{ course.name }}</h1>
+  <p>Price: {{ course.price }}</p>
+  <p>Post Date: {{ course.course_post_date }}</p>
+  <h2>Content:</h2>
+  <center>
+    <div class="row mx-1">
+      {% if content %}
+      <div class="card m-4 bg-body-secondary">
+        <div class="card-body">
+          <p>{{ content.0.name }}</p>
+          <p>{{ content.0.body }}</p>
+          {% if content.0.content %}
+          <video controls width="100%">
+            <source src="{{ content.0.content.url }}" type="video/mp4" />
+          </video>
+          {% endif %}
         </div>
+      </div>
+      {% else %}
+      <p>No content available.</p>
+      {% endif %}
     </div>
-</center>
-{% else %}
-    <p>No content available.</p>
-{% endif %}
-<h2>Buy now to get access over all the contents of this course</h2>
-    {{paypal_payment_button.render}}
-</div>
+  </center>
+  <h2>Buy now to get access to all the contents of this course</h2>
+  <div class="buy-button">{{paypal_payment_button.render}}</div>
 </div>
 {% endblock content %}

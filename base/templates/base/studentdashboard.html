@@ -1,50 +1,99 @@
-{% extends 'main.html' %}
-
+{% extends 'main.html' %} 
 {% block dashboard %}
 <style>
-    .heading {
-      width: 100%;
-      min-height: 100vh;
-      background-image: url("/static/bg.jpg");
-      background-size: cover;
-      background-position: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding-top: 100px;
+  .heading {
+    width: 100%;
+    min-height: 100vh;
+    background-image: url("/static/bg.jpg");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 100px;
+  }
+
+  .card {
+    margin-bottom: 30px;
+  }
+
+  .card-title {
+    margin-top: 10px;
+    margin-bottom: 0;
+    font-size: 1.2rem;
+  }
+
+  .card-subtitle {
+    color: #888;
+    margin-top: 5px;
+  }
+
+  .card-description {
+    margin-top: 15px;
+  }
+
+  .card-teacher {
+    margin-top: 10px;
+  }
+
+  .card-category {
+    margin-top: 10px;
+  }
+
+  .card-price {
+    margin-top: 10px;
+  }
+
+  .card-button {
+    margin-top: 15px;
+    text-align: center;
+  }
+
+  @media (min-width: 576px) {
+    .row-cols-md-2 {
+      column-count: 2;
     }
+  }
+
+  @media (min-width: 992px) {
+    .row-cols-lg-3 {
+      column-count: 3;
+    }
+  }
 </style>
 <div class="heading">
-  <h1 style="color:white;">Courses Available</h1>
-  <hr>
-  <br>
+  <h1 style="color: white">Courses Available</h1>
+  <hr />
+  <br />
   <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 mx-1">
     {% for c in course %}
     <div class="col mb-4">
       <div class="card bg-info-subtle">
         <div class="card-body">
           <h1>{{c.name.upper}}</h1>
-          <hr>
-          <div style="float: right;">
-            <p class="card-title">
-              <small class="text-muted">{{ c.course_post_date }}</small>
-            </p>
+          <hr />
+          <p class="card-subtitle">{{ c.course_post_date }}</p>
+
+          <div class="card-description">
+            <h5 class="card-title">Description:</h5>
+            <p>{{ c.body }}</p>
           </div>
-          
-          <h5 class="card-title">Description: {{ c.body }}</h5>
-          
-          <h5 class="card-title">Teacher: {{ c.teacher }}</h5>
-          
-          <h5 class="card-title">Course price: ₹{{ c.price }}.00</h5>
-          
-          <h5 class="card-title">Category: {{ c.category }}</h5>
-          
-          <a href="/checkout/{{c.id}}/" class="btn btn-success">Course Details</a>
+
+          <h5 class="card-teacher">Teacher: {{ c.teacher }}</h5>
+
+          <h5 class="card-category">Category: {{ c.category }}</h5>
+
+          <h5 class="card-price">Course price: ₹{{ c.price }}.00</h5>
+
+          <div class="card-button">
+            <a href="/checkout/{{c.id}}/" class="btn btn-success btn-block"
+              >Course Details</a
+            >
+          </div>
         </div>
       </div>
     </div>
     {% endfor %}
   </div>
 </div>
-
 {% endblock dashboard %}

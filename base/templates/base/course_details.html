@@ -1,6 +1,4 @@
-{% extends 'main.html' %}
-
-{% block content %}
+{% extends 'main.html' %} {% block content %}
 <style>
   .heading {
     width: 100%;
@@ -14,17 +12,20 @@
     align-items: center;
     padding-top: 100px;
   }
+
   @media (min-width: 992px) {
-  .container {
-    display: flex;
-    flex-wrap: wrap;
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+    }
   }
-}
+
   .card {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
   }
+
   .course-card {
     flex: 0 0 45%;
     margin: 10px;
@@ -34,6 +35,7 @@
     background-color: #fff;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
+
   .video-wrapper {
     position: relative;
     padding-bottom: 56.25%; /* 16:9 aspect ratio for responsive video */
@@ -60,25 +62,29 @@
   <h2>Content:</h2>
   <div class="container">
     {% for content_item in content %}
-      <div class="card course-card bg-primary-subtle">
-        <div class="card-body">
-          <h5 class="card-title">{{ content_item.name }}</h5>
-          <p>{{ content_item.body }}</p>
-          {% if content_item.content %}
-          <div class="video-wrapper">
-            <video controls>
-              <source src="{{ content_item.content.url }}" type="video/mp4">
-            </video>
-          </div>
-          <a href="/update_course_content/{{ course.id }}/{{ content_item.id }}/">
-            <button class="btn btn-success mx-5 my-2">Update Course Content</button>
-          </a>
-          <a href="/delete_course_content/{{ course.id }}/{{ content_item.id }}/">
-            <button class="btn btn-danger mx-5 my-2">Delete Course Content</button>
-          </a>
-          {% endif %}
+    <div class="card course-card bg-primary-subtle">
+      <div class="card-body">
+        <h5 class="card-title">{{ content_item.name }}</h5>
+        <p>{{ content_item.body }}</p>
+        {% if content_item.content %}
+        <div class="video-wrapper">
+          <video controls>
+            <source src="{{ content_item.content.url }}" type="video/mp4" />
+          </video>
         </div>
+        <a href="/update_course_content/{{ course.id }}/{{ content_item.id }}/">
+          <button class="btn btn-success mx-5 my-2">
+            Update Course Content
+          </button>
+        </a>
+        <a href="/delete_course_content/{{ course.id }}/{{ content_item.id }}/">
+          <button class="btn btn-danger mx-5 my-2">
+            Delete Course Content
+          </button>
+        </a>
+        {% endif %}
       </div>
+    </div>
     {% empty %}
     <p>No content available.</p>
     {% endfor %}
