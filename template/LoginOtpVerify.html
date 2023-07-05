@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2FA</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <style>
+  .heading {
+    width: 100%;
+    height: 100vh;
+    background-image: url("/static/bg.jpg");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 100px;
+  }
+        .card {
+          width: 400px;
+          border: none;
+          height: 300px;
+          z-index: 1;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        .card h6 {
+          color: red;
+          font-size: 20px;
+        }
+        .card small {
+          color: black;
+          padding-bottom: 20px;
+        }
+        .validate {
+          border-radius: 20px;
+          height: 40px;
+          background-color: red;
+          border: 1px solid red;
+          width: 140px;
+        }
+      </style>
+        </head>
+        <body>
+          {% include 'navbar.html' %}
+  <div class="heading">
+    <div class="container mt-5">
+      <div class="col-6 mx-auto card p-3 shadow-lg bg-primary-subtle">
+        <h6>
+          Please enter the one time password <br />
+          <center>to login your account</center>
+        </h6>
+        <small>OTP has been sent to yours registered email address</small>
+        <input type="text" name="otp" id="otp" />
+        <div class="mt-4">
+          <button type="submit" class="btn btn-danger px-4 validate">
+            Validate
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% include 'base/footer.html' %}
+    <script>
+      $('#otp').change(function(){
+            let otp = $('#otp').val();
+            console.log("OTP :", otp);
+
+            if (otp == '{{otp}}') {
+                console.log("OTP matched")
+
+                $.ajax({
+                    type: 'POST',
+                    url: "{% url 'LoginOtpverify' %}",
+                    data: {
+                        'otp': otp,
+                        'username': '{{username}}',
+                        'password': '{{password}}',
+                        'role': '{{role}}'
+                    },
+                    success: function(data) {
+                        console.log("OTP verified")
+                        window.location.href="/welcome"
+                    }
+                })
+            }
+        })
+    </script>
+      </body>
+      </html>

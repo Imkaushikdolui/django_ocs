@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Successful</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f1f1f1;
+      text-align: center;
+      padding: 20px;
+    }
+    
+    h1 {
+      color: #00cc00;
+    }
+    
+    p {
+      color: #333333;
+    }
+    
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #333333;
+      color: #ffffff;
+      text-decoration: none;
+      border-radius: 4px;
+    }
+    
+    .button:hover {
+      background-color: #555555;
+    }
+    
+    .receipt {
+      margin: 20px auto;
+      max-width: 600px;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 4px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .receipt p {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Payment Successful</h1>
+  <p>Thank you for your payment. Your transaction has been completed successfully.</p>
+  <p>Here is your receipt:</p>
+  <div class="receipt">
+    <h2>Receipt</h2>
+    <p>Invoice Number: {{ invoice_number }}</p>
+    <p>Item: {{ course.name }}</p>
+    <p>Amount: {{ course.price }}₹</p>
+  </div>
+  <a href="/" class="button">Go back to homepage</a>
+  <p>To access your course "{{ course.name }}", please check the "My Courses" section.</p>
+  <p>If you have any questions, please contact our customer support.</p>
+</body>
+</html>

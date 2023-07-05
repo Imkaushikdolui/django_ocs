@@ -1,0 +1,45 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<style>
+  .heading {
+    width: 100%;
+    height: 100vh;
+    background-image: url("/static/bg.jpg");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 100px;
+  }
+  
+  .container {
+    width: 100%;
+    padding: 0 20px;
+  }
+  
+  .card {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+</style>
+<div class="heading">
+  <div class="container mt-5">
+    <form class="card p-3 shadow-lg" method="POST">
+
+      {% csrf_token %}
+
+      <h2 class="text-center mb-4">Update Courses</h2>
+      <hr>
+      
+      {{ form.as_p }}
+      
+      <div class="text-center">
+        <button type="submit" class="btn btn-dark">Update Course</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock content %}

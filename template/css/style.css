@@ -1,0 +1,169 @@
+/* Global styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+/* Hero section styles */
+.hero-section {
+  background-color: #f9f9f9;
+  padding: 100px 0;
+  text-align: center;
+}
+
+.hero-content {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.hero-content h2 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.hero-content p {
+  font-size: 18px;
+  margin-bottom: 40px;
+}
+
+.hero-content .btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #333;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.hero-content .btn:hover {
+  background-color: #555;
+}
+
+/* Course cards styles */
+.course-section {
+  padding: 20px;
+}
+
+.section-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.course-cards {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.course-card {
+  width: 300px;
+  background-color: #333;
+  border-radius: 8px;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(100px);
+  transition: transform 0.8s ease, opacity 0.8s ease;
+}
+
+.course-card.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.course-card-image {
+  height: 200px;
+  background-color: #555;
+}
+
+.course-card-content {
+  padding: 20px;
+}
+
+.course-card-title {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.course-card-description {
+  color: #ccc;
+}
+
+.course-card-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #ffcc00;
+  color: #333;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+}
+
+.course-card-button:hover {
+  background-color: #ffdb4d;
+}
+
+/* Additional Sections */
+.additional-section {
+  background-color: #f9f9f9;
+  padding: 100px 0;
+  text-align: center;
+}
+
+.additional-section-title {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.additional-section-content {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.additional-section-text {
+  font-size: 18px;
+  margin-bottom: 40px;
+}
+
+.additional-section-image {
+  width: 200px;
+  height: 200px;
+  background-color: #555;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.additional-section-animated {
+  opacity: 0;
+  transform: translateY(100px);
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 1s ease-in-out forwards;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(100px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.animate-slideIn {
+  animation: slideIn 1s ease-in-out forwards;
+}

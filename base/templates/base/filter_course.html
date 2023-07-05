@@ -1,0 +1,41 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<style>
+    .heading {
+      width: 100%;
+      min-height: 100vh;
+      color:white;
+      background-image: url("/static/bg.jpg");
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 100px;
+    }
+
+    .search-result-card {
+      width: 80%;
+      margin-bottom: 30px;
+    }
+</style>
+<div class="heading">
+  <h1>Search Results:</h1>
+  <br><br>
+  {% for c in courses %}
+  <div class="card search-result-card bg-info-subtle">
+    <div class="card-body">
+      <h1>{{ c.name.upper }}</h1>
+      <hr>
+      <p class="card-title"><small class="text-muted" style="float: right;">{{ c.course_post_date }}</small></p>
+      <h5 class="card-title">Description: {{ c.body }}</h5>
+      <h5 class="card-title">Teacher: {{ c.teacher }}</h5>
+      <h5 class="card-title">Course price: ₹{{ c.price }}.00</h5>
+      <h5 class="card-title">Category: {{ c.category }}</h5>
+      <a href="/checkout/{{ c.id }}/" class="btn btn-success">Course Details</a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock content %}

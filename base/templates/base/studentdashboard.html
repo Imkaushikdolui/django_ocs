@@ -1,0 +1,50 @@
+{% extends 'main.html' %}
+
+{% block dashboard %}
+<style>
+    .heading {
+      width: 100%;
+      min-height: 100vh;
+      background-image: url("/static/bg.jpg");
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 100px;
+    }
+</style>
+<div class="heading">
+  <h1 style="color:white;">Courses Available</h1>
+  <hr>
+  <br>
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 mx-1">
+    {% for c in course %}
+    <div class="col mb-4">
+      <div class="card bg-info-subtle">
+        <div class="card-body">
+          <h1>{{c.name.upper}}</h1>
+          <hr>
+          <div style="float: right;">
+            <p class="card-title">
+              <small class="text-muted">{{ c.course_post_date }}</small>
+            </p>
+          </div>
+          
+          <h5 class="card-title">Description: {{ c.body }}</h5>
+          
+          <h5 class="card-title">Teacher: {{ c.teacher }}</h5>
+          
+          <h5 class="card-title">Course price: ₹{{ c.price }}.00</h5>
+          
+          <h5 class="card-title">Category: {{ c.category }}</h5>
+          
+          <a href="/checkout/{{c.id}}/" class="btn btn-success">Course Details</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock dashboard %}

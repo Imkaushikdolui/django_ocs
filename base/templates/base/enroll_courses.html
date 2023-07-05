@@ -1,0 +1,65 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<style>
+    .heading {
+      width: 100%;
+      min-height: 100vh;
+      color: white;
+      background-image: url("/static/bg.jpg");
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 100px;
+    }
+    
+    .card {
+      background-color: #f8f9fa;
+      margin-bottom: 20px;
+    }
+    
+    .card-body {
+      padding: 20px;
+    }
+    
+    .card-title {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+    
+    .btn-success {
+      color: #fff;
+      background-color: #28a745;
+      border-color: #28a745;
+    }
+    
+    .btn-success:hover {
+      background-color: #218838;
+      border-color: #1e7e34;
+    }
+</style>
+<div class="heading">
+  <h1>Enrolled Courses:</h1>
+  {% if courses %}
+  <div class="container">
+    <div class="row row-cols-1 row-cols-md-2">
+      {% for course in courses %}
+        <div class="col mb-4">
+          <div class="card bg-info-subtle">
+            <div class="card-body">
+              <h1>{{ course.name.upper }}</h1>
+              <hr>
+              <a href="/enroll_courses_details/{{ course.id }}/" class="btn btn-success">Course Details</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% else %}
+    <p>No courses enrolled.</p>
+  {% endif %}
+</div>
+{% endblock content %}

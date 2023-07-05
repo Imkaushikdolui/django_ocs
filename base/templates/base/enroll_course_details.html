@@ -1,0 +1,78 @@
+{% extends 'main.html' %}
+{% block content %}
+<style>
+    .heading {
+      width: 100%;
+      min-height: 100vh;
+      color: white;
+      background-image: url("/static/bg.jpg");
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 100px;
+    }
+    @media (min-width: 992px) {
+        .container {
+          display: flex;
+          flex-wrap: wrap;
+        }
+      }
+    .card {
+      background-color: #f8f9fa;
+      margin-bottom: 20px;
+    }
+    
+    .card-body {
+      padding: 20px;
+    }
+    
+    .card-title {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+    
+    video {
+      width: 100%;
+    }
+    
+    @media (min-width: 576px) {
+      .col-sm-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+      }
+    }
+    
+    @media (min-width: 768px) {
+      .col-md-4 {
+        flex: 0 0 33.333333%;
+        max-width: 33.333333%;
+      }
+    }
+</style>
+<div class="heading">
+  <h1>Course Details - {{ course.name }}</h1>
+  <p>Post Date: {{ course.course_post_date }}</p>
+  <h2>Content:</h2>
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 mx-1">
+    {% for content_item in content %}
+    <div class="col mb-4">
+      <div class="card bg-primary-subtle">
+        <div class="card-body">
+          <p>{{ content_item.name }}</p>
+          <p>{{ content_item.body }}</p>
+          {% if content_item.content %}
+          <video controls>
+            <source src="{{ content_item.content.url }}" type="video/mp4">
+          </video>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <p>No content available.</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock content %}
