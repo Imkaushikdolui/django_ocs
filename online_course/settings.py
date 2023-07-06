@@ -23,7 +23,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '#-$wj8uqiwn#y0kbjv9coju1aiw-)&cw14&(--g1*afgmfq-)u'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -156,3 +157,5 @@ EMAIL_USE_SSL = False
 # paypal credentials
 PAYPAL_RECEIVER_EMAIL = "sb-tioev26192971@business.example.com"
 PAYPAL_TEST = True
+
+LOGIN_URL = '/login/'

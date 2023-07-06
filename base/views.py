@@ -22,6 +22,7 @@ def home(request):
     course = Course.objects.all()
     return render(request, 'base/homepage.html',{'course':course})
 
+@login_required
 def welcomepage(request):
     if request.user.role == 'admin':
         return redirect('base:adashboard')
@@ -29,17 +30,18 @@ def welcomepage(request):
         return redirect('base:tdashboard')
     elif request.user.role == 'student':
         return redirect('base:sdashboard')
-
+    
+@login_required
 def studentdashboard(request):
     course = Course.objects.all()
     return render(request, 'base/studentdashboard.html',{'course':course})
 
-
+@login_required
 def admindashboard(request):
     course = Course.objects.all()
     return render(request, 'base/admindashboard.html',{'course':course})
         
-
+@login_required
 def teacherdashboard(request):
     user = request.user # Retrieve the logged-in user directly
     
@@ -56,7 +58,7 @@ def teacherdashboard(request):
     return render(request, 'base/teacherdashboard.html', context)
 
 
-
+@login_required
 def create_course(request, teacher_id):
     teacher = get_object_or_404(Teacher, teacher_id=teacher_id)
 
@@ -87,7 +89,7 @@ def create_course(request, teacher_id):
     }
     return render(request, 'base/create_course.html', context)
 
-
+@login_required
 def update_course(request,pk):
     course = Course.objects.get(id=pk)
     form = CourseForm(instance=course)
@@ -102,12 +104,13 @@ def update_course(request,pk):
         }
     return render(request,'base/update_course.html', context)
 
+@login_required
 def delete_course(request,pk):
     obj = Course.objects.get(id=pk)
     obj.delete()
     return redirect('base:tdashboard')
 
-
+@login_required
 def course_details(request, pk):
     course = get_object_or_404(Course, pk=pk)
     content = Course_content.objects.filter(course_id=course)
@@ -118,7 +121,7 @@ def course_details(request, pk):
     }
     return render(request, 'base/course_details.html', context)
 
-
+@login_required
 def add_course_content(request, pk):
     course = get_object_or_404(Course, pk=pk)
 
@@ -147,6 +150,7 @@ def add_course_content(request, pk):
     }
     return render(request, 'base/add_course_content.html', context)
 
+@login_required
 def update_course_content(request,pk,cc_id):
     course = get_object_or_404(Course, pk=pk)
     course_content = get_object_or_404(Course_content, pk=cc_id)
@@ -167,6 +171,7 @@ def update_course_content(request,pk,cc_id):
     }
     return render(request, 'base/update_course_content.html', context)
 
+@login_required
 def delete_course_content(request,pk,cc_id):
     course = get_object_or_404(Course, pk=pk)
     course_content = get_object_or_404(Course_content, pk=cc_id)
@@ -192,6 +197,7 @@ def generate_invoice_number(prefix):
     invoice_number = '{}-{}-{}'.format(prefix, timestamp, unique_id)
     return invoice_number
 
+@login_required
 def checkout(request,pk):
     course = get_object_or_404(Course, pk=pk)
     content = Course_content.objects.filter(course_id=course)
@@ -259,6 +265,7 @@ def payment_completed(request):
 def payment_failed(request):
     return render(request,'base/payment_failed.html')
 
+@login_required
 def enroll_courses(request, pk):
     student = Student.objects.get(student_id=pk)
     payments = Payment.objects.filter(student_id=student)
@@ -271,6 +278,7 @@ def enroll_courses(request, pk):
     }
     return render(request, 'base/enroll_courses.html', context)
 
+@login_required
 def enroll_course_details(request,pk):
     course = get_object_or_404(Course, pk=pk)
     content = Course_content.objects.filter(course_id=course)
@@ -279,6 +287,7 @@ def enroll_course_details(request,pk):
         'content': content,
     }
     return render(request,'base/enroll_course_details.html',context)
+
 
 def search(request):
     q = request.GET.get('q', '')
@@ -291,6 +300,7 @@ def search(request):
 
     return render(request, 'base/filter_course.html', {'courses': courses})
 
+@login_required
 def teacher_stats(request, pk):
     teacher = Teacher.objects.get(teacher_id=pk)
     courses = Course.objects.filter(teacher_id=teacher).annotate(
